@@ -1,42 +1,28 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 
-from application.exceptions.base import ApplicationException
-from infrastructure.config.settings import settings
-from infrastructure.logging.request_logging_middleware import RequestLoggingMiddleware
-from infrastructure.tracing.instrumentation import instrument_app
-from infrastructure.tracing.middleware import TracingMiddleware
-from infrastructure.tracing.tracer import init_tracer
-from interfaces.api.error_handlers import application_exception_handler, unhandled_exception_handler, \
+from src.application.exceptions.base import ApplicationException
+from src.infrastructure.config import settings
+from src.infrastructure.logging import RequestLoggingMiddleware
+from src.infrastructure.tracing.instrumentation import instrument_app
+from src.infrastructure.tracing.middleware import TracingMiddleware
+from src.infrastructure.tracing.tracer import init_tracer
+from src.interfaces.api.error_handlers import application_exception_handler, unhandled_exception_handler, \
     validation_error_handler
-from interfaces.api.metrics_router import router as metrics_router
-from interfaces.api.middlewares.auth_middleware import AuthMiddleware
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    from infrastructure.database.base import Base
-    from infrastructure.database.session import engine
-    Base.metadata.create_all(bind=engine)
-
-    yield
-
-    # Shutdown
-    engine.dispose()
+from src.interfaces.api.health.health_router import router as health_router
+from src.interfaces.api.metrics_router import router as metrics_router
+# from interfaces.api.middlewares.auth_middleware import AuthMiddleware
 
 
 def create_app():
     app = FastAPI(
-        title="FastAPI Base Framework",
-        debug=settings.DEBUG,
-        lifespan=lifespan
+        title="Bami Framework",
+        debug=settings.debug
     )
 
     # app.add_middleware(AuthMiddleware)
     app.add_middleware(RequestLoggingMiddleware)
+    app.include_router(health_router)
     app.include_router(metrics_router)
 
     # 1. Init global tracer
