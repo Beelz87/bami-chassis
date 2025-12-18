@@ -3,7 +3,7 @@ from fastapi.exceptions import RequestValidationError
 
 from src.application.exceptions.base import ApplicationException
 from src.infrastructure.config import settings
-from src.infrastructure.logging import RequestLoggingMiddleware
+from src.infrastructure.logging.request_logging_middleware import RequestLoggingMiddleware
 from src.infrastructure.tracing.instrumentation import instrument_app
 from src.infrastructure.tracing.middleware import TracingMiddleware
 from src.infrastructure.tracing.tracer import init_tracer
