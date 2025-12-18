@@ -6,10 +6,10 @@ from typing import Dict
 
 class Settings(BaseSettings):
     # --- Environment ---
-    debug: bool = True
+    debug: bool = False
     service_name: str = "bami-service"
-    environment: str = "dev"
-    log_level: str = "debug"
+    environment: str = "local"
+    log_level: str = "INFO"
 
     # --- Security ---
     public_key: str = ""
@@ -50,9 +50,12 @@ class Settings(BaseSettings):
                 raise ValueError("SERVICE_NAME_MAP must be valid JSON string")
         raise ValueError("SERVICE_NAME_MAP must be dict or JSON string")
 
-    # --- Tracing ---
+    # --- Tracing & Monitoring ---
     otlp_endpoint: str = "http://opentelemetry-collector:4318/v1/traces"
     trace_debug_console: bool = False
+    enable_metrics: bool = True
+    enable_tracing: bool = True
+    enable_auth: bool = True
 
 
 # Instance settings global
