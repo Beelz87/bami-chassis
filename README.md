@@ -1,1 +1,1 @@
-# bami-chassis
+# Bami Chassis project
