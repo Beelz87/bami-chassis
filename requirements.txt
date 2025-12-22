@@ -24,9 +24,10 @@ httpx
 # === Circuit Breaker ===
 pybreaker
 
-# === JWT / Auth ===
+# === JWT / Auth / Authz ===
 PyJWT[crypto]
 cryptography
+casbin
 
 # === Monitoring ===
 prometheus_client

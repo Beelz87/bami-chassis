@@ -2,8 +2,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
 from src.application.exceptions.http_exceptions import UnauthorizedError
-from src.infrastructure.auth.exceptions import TokenExpiredError, InvalidTokenError
-from src.infrastructure.auth.token_verifier import token_verifier
+from src.infrastructure.auth import TokenExpiredError, InvalidTokenError
+from src.infrastructure.auth import token_verifier
 
 
 class AuthMiddleware(BaseHTTPMiddleware):
