@@ -1,5 +1,5 @@
 __all__ = [
-    "Settings",
+    "settings",
     "init_tracer",
     "instrument_app",
     "TracingMiddleware",
@@ -7,7 +7,7 @@ __all__ = [
     "MetricsMiddleware",
 ]
 
-from bami_chassis.infrastructure.config.settings import Settings
+from bami_chassis.infrastructure.config import settings
 from bami_chassis.infrastructure.tracing.tracer import init_tracer
 from bami_chassis.infrastructure.tracing.instrumentation import instrument_app
 from bami_chassis.infrastructure.tracing.middleware import TracingMiddleware
